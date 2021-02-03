@@ -1633,6 +1633,10 @@ void handle_connection (struct conn_s *connptr, union sockaddr_union* addr)
                                 failure = 0;
                 if(failure) {
 e401:
+                        log_message (LOG_CONNECT, config->bindsame ?
+                                "Basic Auth Failure (file descriptor %d): %s at [%s]" :
+                                "Basic Auth Failure (file descriptor %d): %s",
+                                fd, peer_ipaddr, sock_ipaddr);
                         update_stats (STAT_DENIED);
                         indicate_http_error (connptr, 401, "Unauthorized",
                                              "detail",
